@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "test": "mocha app.test.js",
-    "start": "node app.js && npm run open",
-    "open": "start http://localhost:3000"
+    "start": "start http://localhost:3000 & node app.js"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +19,7 @@
     "web3": "^1.7.1"
   },
   "devDependencies": {
+    "http-server": "^14.1.0",
     "mocha": "^9.2.2",
     "nodemon": "^2.0.15",
     "sleep-ms": "^2.0.1"

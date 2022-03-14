@@ -51,6 +51,10 @@ res.render("index", {latestBlockNumber});
 app.post("/blockrange", async (req, res) => {
 	var fromBlock = req.body.fromBlock;
 	var toBlock = req.body.toBlock;
+	if(parseInt(fromBlock) <0 || parseInt(fromBlock)>latestBlockNumber)
+		fromBlock=latestBlockNumber;
+	if(parseInt(toBlock)<0 ||parseInt(toBlock)>latestBlockNumber)
+		toBlock=latestBlockNumber
 	range = {fromBlock:fromBlock, toBlock:toBlock}
 	getData(range, res);
 });
@@ -58,6 +62,8 @@ app.post("/blockrange", async (req, res) => {
 //sending number of blocks to be queried
 app.post("/blocksFromLatest", async (req, res) => {
 	var numBlocksFromLatest = req.body.numBlocksFromLatest;
+	if(parseInt(numBlocksFromLatest)<0)
+		numBlocksFromLatest=0;
 	var fromBlock = latestBlockNumber - numBlocksFromLatest;
 	var toBlock = latestBlockNumber;
 	range = {fromBlock:fromBlock, toBlock:toBlock}

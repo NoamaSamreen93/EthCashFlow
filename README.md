@@ -8,15 +8,16 @@ A block explorer which lets a user access ad-hoc blockchain data. This tool take
 
 # Building the Tool 
 This is a Node.js project written using Express. EJS was used as the view engine.
-'''
+```
 npm build
-'''
-# Test thr Tool
-'''
+```
+# Test the Tool
+Uses mocha.
+```
 npm test
-'''
+```
 # Run the Tool
-'''
+```
 npm start
-'''
+```
 

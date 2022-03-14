@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Eth Cash Flow Explorer</title>
+	<script language="javascript" src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+  </head>
+  <body>
+  <div class="align-items-center container">
+	<div class="wrapper">
+    <div class="logo"><img src="https://www.freepnglogos.com/uploads/search-png/search-apps-icon-flatwoken-iconset-alecive-32.png" width="200" alt=""> </div>
+     <h2>ETH Cash Flow Explorer</h2>
+	<h4> Enter Block Range </h4>
+	<p> Note: The latest block number on Ethereum Mainnet - <strong><%=latestBlockNumber%></strong></p>
+	<form action="/blockRange" method ="POST" class="p-3 mt-3">
+		<div class="form-field d-flex align-items-center"> <span class="far fa-user"></span> <label class="control-label col-sm-2" for="fromBlock">From Block</label>
+		<div class="form-field d-flex align-items-center"> <span class="far fa-user"></span><input type="text" class="form-control" name="fromBlock" placeholder="From Block Number" id="fromBlock"></div></div>
+		<div class="form-field d-flex align-items-center"> <span class="far fa-user"></span> <label class="control-label col-sm-2" for="toBlock">To Block</label> 
+		<div class="form-field d-flex align-items-center"> <span class="far fa-user"></span><input type="text" class="form-control" name="toBlock" placeholder="To Block Number" id="toBlock"></div></div>
+		<div class="form-field d-flex align-items-center">  
+        <div class="text-center align-items-center"><a href="/blockRange"><button type="submit" class="btn btn-primary">Submit</button> </a></div></div>
+	</form>
+	<h4> OR </h4>
+	<p> Enter the number of blocks you wish to explore back from the latest block</p>
+	<form action="/blocksFromLatest" method ="POST" class="p-3 mt-3">
+		<div class="form-field d-flex align-items-center"> <span class="far fa-user"></span> <label class="control-label col-sm-2" for="numBlocksFromLatest">Number of Blocks</label>
+		<div class="form-field d-flex align-items-center"> <span class="far fa-user"></span><input type="text" class="form-control" name="numBlocksFromLatest" placeholder="Number of Blocks from the Latest Block" id="numBlocksFromLatest"></div></div>
+		<div class="form-field d-flex align-items-center">  
+        <div class="text-center align-items-center"><a href="/blocksFromLatest"><button type="submit" class="btn btn-primary">Submit</button> </a></div></div>
+	</form>
+  </div>
+ </div>
+  </body>
+</html>
+
+
+

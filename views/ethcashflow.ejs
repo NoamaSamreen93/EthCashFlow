@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Eth Cash Flow Report</title>
+	<!--Bootstrap-->
+	<script language="javascript" src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css"/>
+ </head>
+ <body>
+	<div class="align-items-center container">
+		<div class="wrapper">
+			<div class="logo"><img src="https://www.freepnglogos.com/uploads/search-png/search-apps-icon-flatwoken-iconset-alecive-32.png" width="200" alt=""> </div>
+			<h2>ETH Cash Flow Explorer</h2>
+			<p> Entered Range: From Block Number - <%=range.fromBlock%>  To Block Number - <%=range.toBlock%> </p>
+			<p> Total Ether Transferred :  <%=totalEtherTransferred%> </p>
+			<p> Total Contracts Created: <%=contractCreated%> </p>
+			<p> Percentage of Contract Transactions: <%=contractPercent%> </p>
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 b-r padding_bottom_50" >
+		<p class="margin_top_600px">
+		<div class="overflow-auto">
+		 <h4>SENDERS</h4> 
+		 <p>Total Unique Senders - <%=senders.length%></p>
+			<table class="table table-striped">
+				<thead>
+				<tr><th scope="col">Address</th>
+					<th scope="col">Address-Type</th>
+					<th scope="col">Total-Ether</th>
+				</tr>
+				</thead>
+				<tbody>
+				<% senders.forEach(function(value) { %>
+				<tr>
+				<td><%= value.address %></td>
+				<td><%= value.type %></td>
+				<td><%= value.ethSent %></td>
+				</tr>
+				<% }) %>
+				</tbody>
+			</table>
+		</div>
+		</p>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 b-r padding_bottom_50" >
+		<p class="margin_top_600px"> 
+		<div class="overflow-auto">
+		<h4>RECEIVERS</h4>
+		 <p>Total Unique Receivers - <%=receivers.length%></p>
+			<table class="table table-striped">
+				<thead>
+				<tr><th scope="col">Address</th>
+				<th scope="col">Address-Type</th>
+				<th scope="col">Total-Ether</th>
+				</tr>
+				</thead>
+				<tbody>
+				<% receivers.forEach(function(value) { %>
+				<tr>
+				<td><%= value.address %></td>
+				<td><%= value.type %></td>
+				<td><%= value.ethReceived %></td>
+				</tr>
+				<% }) %>
+				</tbody>
+				</table>
+			</div>	
+			</p>
+		</div>
+	</div>
+</div>	
+</div>	
+ </body>
+</html>
+ 

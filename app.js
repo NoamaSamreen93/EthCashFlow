@@ -7,7 +7,7 @@ const Web3 = require('web3');
 const provider = 'https://mainnet.infura.io/v3/413b6fff767a47178527bacc84ff96d2'; //Your Infura Endpoint
 const web3Provider = new Web3.providers.HttpProvider(provider);
 const web3 = new Web3(web3Provider);
-const port = 3000;
+const port = process.env.port || 3000;
 
 app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -28,25 +28,49 @@ var contracts=0;
 
 //query to get block data by number
 async function queryBlock(i){  		
-	var json =  await web3.eth.getBlock(i);
+	try{
+		var json =  await web3.eth.getBlock(i);
+	}
+	catch(e){
+		console.error(e);
+	}
 	return json;
 }
 //query to get transaction by transaction hash
 async function queryTransaction(i){
-	var json = await web3.eth.getTransaction(i);
+	try{
+		var json = await web3.eth.getTransaction(i);
+	}
+	catch(e){
+		console.error(e);
+	}
 	return json;
 }
 //query to get contract code from an address
 async function queryContractCode(i){
-	var code = await web3.eth.getCode(i);
+	try{
+		var code = await web3.eth.getCode(i);
+	}
+	catch(e){
+		console.error(e);
+	}
 	return code;
 }
+
+
 //index page
 app.get("/", async function(req, res){
-latestBlockNumber = await web3.eth.getBlockNumber();
-console.log("Latest Block Number: "+ latestBlockNumber);
-res.render("index", {latestBlockNumber});
+try{
+	latestBlockNumber = await web3.eth.getBlockNumber();
+}catch(e)
+{
+	console.error(e);
+}
+//console.log("Latest Block Number: "+ latestBlockNumber);
+return res.render("index", {'latestBlockNumber':latestBlockNumber});
 });
+
+
 //sending block range values to retrieve block data
 app.post("/blockrange", async (req, res) => {
 	var fromBlock = req.body.fromBlock;
@@ -56,7 +80,7 @@ app.post("/blockrange", async (req, res) => {
 	if(parseInt(toBlock)<0 ||parseInt(toBlock)>latestBlockNumber)
 		toBlock=latestBlockNumber
 	range = {fromBlock:fromBlock, toBlock:toBlock}
-	getData(range, res);
+	return getData(range, res);
 });
 
 //sending number of blocks to be queried
@@ -67,7 +91,7 @@ app.post("/blocksFromLatest", async (req, res) => {
 	var fromBlock = latestBlockNumber - numBlocksFromLatest;
 	var toBlock = latestBlockNumber;
 	range = {fromBlock:fromBlock, toBlock:toBlock}
-	getData(range, res);
+	return getData(range, res);
 });
 	
 //function to get block data
@@ -147,21 +171,11 @@ function getData(range, res){
 				}
 			}
 			var contractPercent = parseFloat((contracts/transactionHashes.length)*100).toFixed(2);			//calculate percent of contracts transactions in the block range
-			res.render("ethcashflow",{'range':range, 'senders' : senders, 'receivers': receivers, contractCreated, totalEtherTransferred, contractPercent});  //load the report page with transactions data
+			return res.render("ethcashflow",{'range':range, 'senders' : senders, 'receivers': receivers, 'contractCreated': contractCreated, 'totalEtherTransferred':totalEtherTransferred, 'contractPercent':contractPercent});  //load the report page with transactions data
 			});
 		});
 	});
 }
-app.use(function(err, req, res, next) {			//wrap errors so that its not displayed to the users
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
-});
 
 
-module.exports = app;
-app.listen(process.env.port || 3000);
-
-console.log('Running at Port 3000');
+module.exports = app.listen(port, ()=> console.log('Listening on port ${port}...'));

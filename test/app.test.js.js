@@ -1,3 +1,9 @@
+/*
+Ether Cash Flow Server - Test
+Author - Noama Samreen 
+
+This js is used to test the Ether Cash Flow Server.
+*/
 const { assert, expect } = require("chai");
 let chai = require ("chai");
 let chaiHttp = require("chai-http");

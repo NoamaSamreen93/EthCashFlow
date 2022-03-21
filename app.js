@@ -1,3 +1,9 @@
+/*
+Ether Cash Flow Server 
+Author - Noama Samreen 
+
+This js is used to connect to Ethereum Mainnet using Web3 library to retrieve data.
+*/
 const express  = require("express");
 const app = express();
 const ejs = require("ejs");
